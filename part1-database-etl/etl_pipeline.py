@@ -48,11 +48,12 @@ from sqlalchemy import create_engine
 # Connection string with password safely encoded
 engine = create_engine("mysql+mysqlconnector://root:India%4021@localhost/fleximart")
 
+import os
+
 # Load cleaned DataFrames into MySQL tables
 customers_df.to_sql("customers", con=engine, if_exists="replace", index=False)
 products_df.to_sql("products", con=engine, if_exists="replace", index=False)
 sales_df.to_sql("sales", con=engine, if_exists="replace", index=False)
 print("✅ Cleaned data loaded into MySQL successfully")
-
 
 

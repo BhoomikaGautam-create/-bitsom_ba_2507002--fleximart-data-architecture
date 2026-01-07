@@ -1,0 +1,36 @@
+Report
+1st query: Number of records processed per file
+
+Raw record counts:
+Customers: 26
+Products: 20
+Sales: 41
+
+Cleaned record counts:
+Customers: 25 (dropped 1)
+Products: 16 (dropped 4)
+Sales: 41 (dropped 0)
+
+Records processed-
+Customers: 25
+Products: 16
+Sales: 41
+
+2nd query: Number of duplicates removed
+
+Number of duplicates before cleaning:
+Customers: 1
+Products: 0
+Sales: 1
+
+3rd query: Number of missing values handled
+
+Number of missing values handled:
+Customers: 5
+Products: 3
+Sales: 5
+
+4th query: Number of records loaded successfully
+Customers: 25
+Products: 20
+Sales: 40
