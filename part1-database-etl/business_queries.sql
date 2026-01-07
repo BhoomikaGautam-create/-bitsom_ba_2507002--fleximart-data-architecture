@@ -17,3 +17,35 @@ GROUP BY c.customer_id, c.first_name, c.last_name, c.email
 HAVING COUNT(DISTINCT o.order_id) >= 2
    AND SUM(oi.subtotal) > 5000
 ORDER BY total_spent DESC;
+
+-- Query 2: Product Sales Analysis
+-- Business Question: For each product category, show the category name, number of different products sold, 
+-- total quantity sold, and total revenue generated. Only include categories that have generated more than ₹10,000 in revenue. 
+-- Order by total revenue descending.
+
+SELECT 
+    p.category AS category,
+    COUNT(DISTINCT p.product_id) AS num_products,
+    SUM(oi.quantity) AS total_quantity_sold,
+    SUM(oi.subtotal) AS total_revenue
+FROM products p
+JOIN order_items oi 
+    ON p.product_id = oi.product_id
+GROUP BY p.category
+HAVING SUM(oi.subtotal) > 10000
+ORDER BY total_revenue DESC;
+
+-- Query 3: Monthly Sales Trend
+-- Business Question: Show monthly sales trends for the year 2024. For each month, display the month name, 
+-- total number of orders, total revenue, and the running total of revenue (cumulative revenue from January to that month).
+-- Expected Output Columns: month_name | total_orders | monthly_revenue | cumulative_revenue
+
+SELECT 
+    DATE_FORMAT(o.order_date, '%M') AS month_name,
+    COUNT(o.order_id) AS total_orders,
+    SUM(o.total_amount) AS monthly_revenue,
+    SUM(SUM(o.total_amount)) OVER (ORDER BY MONTH(o.order_date)) AS cumulative_revenue
+FROM orders o
+WHERE YEAR(o.order_date) = 2024
+GROUP BY MONTH(o.order_date), DATE_FORMAT(o.order_date, '%M')
+ORDER BY MONTH(o.order_date);
